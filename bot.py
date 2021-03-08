@@ -188,4 +188,5 @@ async def on_message(message):
         embed12.set_image(url='attachment://winv2.jpg')
         await message.channel.send(file=winFile, embed=embed12)
 
-client.run('Nzk2MTk0MDU1OTY0NDU5MDM4.X_UXfw.fABCky_f19kcPW5exYRn2mOo-9o')
+client.run(token)
+#you can generate token in https://discord.com/developers/applications
