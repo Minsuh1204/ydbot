@@ -1,12 +1,9 @@
 import datetime
 import pickle
 global TimesDict
-global srcList
-srcList = []
 
 def main():
     global TimesDict
-    global srcList
     TimeLoader()
     #print(TimesDict)
 
@@ -22,16 +19,12 @@ def TimeLoader():
 #opt=0: start   // opt=1: stop and return second+microsecond
 def Benchmark(opt, command):
     global TimesDict
-    global srcList
     TimeLoader()
     if opt == 0:
         now0 = datetime.datetime.now()
-        srcList.append(now0)
     if opt == 1:
         now1 = datetime.datetime.now()
-        srcList.append(now1)
-        fin_val = srcList[1] - srcList[0]
-        srcList = []
+        fin_val = now1 - now0
         final_time = int(fin_val.seconds) + int(fin_val.microseconds) / 1000000
         TimesDict[str(command)].append(final_time)
         TimeSaver()
@@ -43,8 +36,13 @@ def Average(command):
     how_many = len(TimesDict[str(command)])
     for i in range(how_many):
         time_sum = time_sum + TimesDict[str(command)][i]
-        print(TimesDict[str(command)][i], how_many, i)
-    return time_sum / how_many
+        #print(TimesDict[str(command)][i], how_many, i)
+    try:
+        return time_sum / how_many
+    except ZeroDivisionError:
+        return 'No data'
 
 if __name__ == '__main__':
     main()
+else:
+    TimeLoader()
